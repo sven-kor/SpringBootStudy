@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatis.mapper.userMapper">
+  <resultMap id = "postWithUser" type = "Post">
+  <id property="id" colomn="post_id"><!-- id는 PK라서 id라고 씀-->
+  <result property="userId" colomn="user_id">
+  <result property="title" colomn="title">
+  <result property="content" colomn="content">
+  <result property="createdAt" colomn="post_created_at">
+  <association property="user" javaType="User">
+    <id property="id" colomn="user_id">
+    <result property="email" colomn="email">
+    <result property="nickname" colomn="nickname">
+    <result property="createdAt" colomn="User_created_at">
+
+  </association>
+
+
+  </resultMap>
+
+
+<!--모든 select태그는 결과 타입(resultType, resultMap) 명시가 필요합니다.-->
+  <select id="countAll" resultType="long">
+    SELECT COUNT(*) FROM posts
+  </select>
+  <select id="findById" resultMap="postWithUser">
+  SELECT 
+  p.id AS post_id,p.user_id, p.title, p.content, p.created_at AS post_created_at,u.email, u.nickname, u.created_at AS user_created_at 
+  FROM users u
+  INNER JOIN posts p ON u.id=p.user_id
+  WHERE p.id = #{id}
+  </select>
+  <select id="findAll" resultMap="postWithUser">
+  <!-- xml에서 전체든 단건이든 resultMap은 동일하다-->
+   SELECT 
+  p.id AS post_id,p.user_id, p.title, p.content, p.created_at AS post_created_at,u.email, u.nickname, u.created_at AS user_created_at 
+  FROM users u
+  INNER JOIN posts p ON u.id = p.user_id
+  ORDER BY post_id DESC
+  LIMIT #{offset}, #{size}
+  </select>
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id">
+  <!--insert, update, delete 태그는 결과타입을 명시하면 오류난다잉?//int로 되어있어서..-->
+  <!-- java에서 insert하면 return값이 201+ post내용이 나올텐데 
+  id가 없으니 키값으로 넣는것, createdAt은 자바에서 찍으면 차이가 생기니까 화면으로 넘기지 않음.-->
+  INSERT INTO posts (user_id, title, content)
+  VALUES (#{userId},#{title},#{content})
+  </insert>
+  <update id="update">
+  UPDATE posts
+  SET title = #{title},
+      content = #{content}
+  WHERE id = #{id}
+  </update>
+
+  <delete id="deleteById">
+  DELETE FROM posts
+  WHERE id = #{id}
+  </delete>
+
+
+</mapper>
