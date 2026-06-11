@@ -19,6 +19,26 @@
       "projectName": "ex03_request",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-Ex04AopApplication<ex04_aop>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.aop.Ex04AopApplication",
+      "projectName": "ex04_aop",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-Ex07MybatisApplication<ex07_mybatis>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.mybatis.Ex07MybatisApplication",
+      "projectName": "ex07_mybatis",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

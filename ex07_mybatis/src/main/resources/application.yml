@@ -13,4 +13,4 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true # user_id -> userId
   type-aliases-package: com.example.mybatis.domain # com.example.mybatis.domain.User -> User
-  mapper-lacation: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml
