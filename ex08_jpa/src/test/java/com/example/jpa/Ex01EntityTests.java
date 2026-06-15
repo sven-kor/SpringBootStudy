@@ -30,17 +30,13 @@ class Ex01EntityTests {
   static void setUpBeforeClass() {
     JpaUtil.initFactory();
   }
-
   // 각 테스트 시작 전 엔티티 매니저를 생성
   @BeforeEach
   void setUp() {
     em = JpaUtil.getEntityManager();
     tx = em.getTransaction();
     tx.begin();
-
-  
   }
-
   // 각 테스트 종료 후 엔티티 메니저를 닫아줌
   @AfterEach
   void tearDown() {
@@ -48,42 +44,41 @@ class Ex01EntityTests {
       tx.rollback();
     }
     if (em != null && em.isOpen()) {
-    
       em.close();
-
     }
   }
-
   // 전체 테스트 종료 후 엔티티 매니저 팩토리를 닫아줌
   @AfterAll
   static void tearDownAfterClass() {
     JpaUtil.closeFactory();
   }
 
-  // 이제부터 테스트 진행
+  //이제부터 테스트 진행
   @Test
   @DisplayName("기본 엔티티 저장 및 확인")
   //테스트 결과 화면에 나오는 문구
   void testEntityMapping(){
     //새 엔티티 생성 (엔티티 매니저가 관리하는 엔티티가 아님)
     Product product = new Product("P001", "노트북", 1500000, "가볍고 성능 좋은 노트북");
-
     //엔티티 매니저가 엔티티를 관리함
     //세부 핵심 특징: 관리되는 엔티티는 반드시 ID를 가지고 있어야 한다. AUTO_INCREMENT 전략을 사용하는 경우 persist() 호출 즉시 INSERT 쿼리를 DB로 날려 ID를 받아온 뒤 영속성 컨텍스트에 저장한다. 
     em.persist(product);
-
+    em.clear();
     //ID 확인
     assertNotNull(product.getId()); //ID가 NOT NULL이면 통과
     System.out.println("생성된 Product ID: "+ product.getId());
+    System.out.println(em.find(Product.class, product.getId()));
   }
 
   @Test
   @DisplayName("PK의 테이블 생성 전략 확인")
   void entityTest(){
-    User user =  new User("홍길동", "hong-gildong", Role.ADMIN);
+    User user =  new User("김형준", "hjhj919@naver.com", Role.ADMIN);
     em.persist(user);
+    em.flush();
     System.out.println("=======생성된 User======");
-    System.out.println(user);
-    tx.commit(); //이게 insert쿼리를 db로 날림
+    System.out.println(em.find(User.class, user.getId()));
+
+    // tx.commit(); //이게 insert쿼리를 db로 날림
   }
 }

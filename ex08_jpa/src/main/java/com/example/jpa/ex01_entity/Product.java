@@ -25,6 +25,7 @@ public class Product {
   private Long id;
 
   @Column(name = "product_code", nullable = false, length = 20)
+  //column 이름 설정
   private String productCode;
 
   @Column(name = "product_name", nullable = false, length = 100)
