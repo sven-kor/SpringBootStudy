@@ -15,6 +15,8 @@
   <class>com.example.jpa.ex05_one_to_many.PostComment</class>
   <class>com.example.jpa.ex06_bidirection.Order</class>
   <class>com.example.jpa.ex06_bidirection.OrderItem</class>
+  <class>com.example.jpa.ex07_jpql.Employee</class>
+  <class>com.example.jpa.ex07_jpql.Department</class>
   
   
     <properties>
