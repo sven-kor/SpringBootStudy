@@ -39,6 +39,16 @@
       "projectName": "ex07_mybatis",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-Ex05RestApiApplication<ex05_rest_api>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.restapi.Ex05RestApiApplication",
+      "projectName": "ex05_rest_api",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

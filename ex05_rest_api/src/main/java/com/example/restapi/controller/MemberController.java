@@ -49,7 +49,7 @@ public class MemberController {
   //try-catch가 되는 이유는 service에서 throw던짐
   //PathVariable : URL 경로의 값을 가져오는 어노테이션
   @GetMapping("/{id}")
-  public ResponseEntity<MemberResponse> getMemberById(@PathVariable Long id){
+  public ResponseEntity<MemberResponse> getMemberById(@PathVariable("id") Long id){
     try {
       MemberResponse memberResponse = memberService.findById(id);
       return ResponseEntity.ok(memberResponse);
@@ -58,7 +58,7 @@ public class MemberController {
     }
   }
   //4. 회원 수정
-  @PutMapping("{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<MemberResponse> updatedMember(
     @PathVariable("id") Long id,
     @RequestBody MemberRequest request
